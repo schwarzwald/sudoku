@@ -1,0 +1,13 @@
+@import '../../sass/variable';
+
+.grid {
+  .gridRow {
+      .gridCell {
+        display: inline-block;
+
+        .top {
+          border-top: 2px
+        }
+      }
+  }
+}
