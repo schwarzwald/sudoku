@@ -1,12 +1,29 @@
-@import '../../sass/variable';
+@import '../../sass/variables';
 
 .grid {
-  .gridRow {
-      .gridCell {
+  .grid-row {
+      .grid-cell {
+        border: $border-thickness solid $border-color;
         display: inline-block;
+        height: $cell-size;
+        width: $cell-size;
+        text-align: center;
 
-        .top {
-          border-top: 2px
+        &.static {
+          font-weight: bold;
+        }
+
+        &.bottom {
+          border-bottom: $border-thickness-bold solid $border-color;
+        }
+        &.left {
+          border-left: $border-thickness-bold solid $border-color;
+        }
+        &.right {
+          border-right: $border-thickness-bold solid $border-color;
+        }
+        &.top {
+          border-top: $border-thickness-bold solid $border-color;
         }
       }
   }

@@ -3,6 +3,9 @@ import React from 'react';
 import GridCell from './gridCell.js';
 import style from './grid.scss';
 
+const CLASS_GRID = "grid";
+const CLASS_GRID_ROW = "grid-row";
+
 class Grid extends React.Component {
 
   constructor(props) {
@@ -28,7 +31,7 @@ class Grid extends React.Component {
     }
 
     return (
-      <div className="grid">
+      <div className={CLASS_GRID}>
         { rows }
       </div>
     )
@@ -36,7 +39,7 @@ class Grid extends React.Component {
 }
 
 const GridRow = (children) => (
-  <div className="gridRow">
+  <div className={CLASS_GRID_ROW}>
     { children }
   </div>
 )
