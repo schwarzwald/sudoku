@@ -1,4 +1,6 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
+import GridEditor from './gridEditor.js';
 
 const CLASS_GRID_CELL = "grid-cell";
 const CLASS_GRID_CELL_STATIC = "static";
@@ -16,12 +18,32 @@ class GridCell extends React.Component {
     }
 
     this.onClick = this.onClick.bind(this);
+    this.openEditor = this.openEditor.bind(this);
+    this.closeEditor = this.closeEditor.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
-  onClick() {
+  openEditor() {
     this.setState({
       isEditing : true
     })
+  }
+
+  closeEditor() {
+    this.setState({
+      isEditing : false
+    })
+  }
+
+  onClick() {
+    if (!this.props.static) {
+      this.openEditor();
+    }
+  }
+
+  onSelect(value) {
+    this.closeEditor();
+    this.props.onUpdate(this.props.position, value);
   }
 
   render() {
@@ -38,7 +60,12 @@ class GridCell extends React.Component {
     ].filter(c => c != null).join(" ");
 
     return (
-      <div className={classes} onClick = { this.onClick }>{ this.props.value }</div>
+      <div className={ classes } onClick = { this.onClick }>
+        { this.props.value || "" }
+        <Modal show={ this.state.isEditing } onHide={ this.closeEditor }>
+          <GridEditor value={ this.props.value } onSelect={ this.onSelect } />
+        </Modal>
+      </div>
     )
   }
 }
@@ -46,7 +73,8 @@ class GridCell extends React.Component {
 GridCell.propTypes = {
   value: React.PropTypes.number.isRequired,
   position: React.PropTypes.number.isRequired,
-  static: React.PropTypes.bool
+  static: React.PropTypes.bool,
+  onUpdate: React.PropTypes.func.isRequired
 }
 
 GridCell.defaultProps = {

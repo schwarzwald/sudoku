@@ -1,14 +1,15 @@
 import React from 'react';
-import Grid from './grid/grid.js'
+import GridContainer from './containers/gridContainer.js'
+import { QassimHamza } from '../puzzles.js';
 
 class App extends React.Component {
    render() {
       return (
          <div>
-           <Grid />
+           <GridContainer puzzle={ QassimHamza } />
          </div>
       );
    }
 }
 
-export default App 
+export default App

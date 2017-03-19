@@ -8,23 +8,21 @@ const CLASS_GRID_ROW = "grid-row";
 
 class Grid extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.cellClickedHandler.bind(this);
-  }
-
-  cellClickedHandler(cellProps) {
-    console.log(this);
-    alert('clicked' + cellProps.value);
-  }
-
   render() {
     let rows = [];
     for (let i=0; i < 81; i++) {
       if (i % 9 == 0) {
         rows.push(
           new GridRow(
-            this.props.values.slice(i, i + 9).map((v, p)=> <GridCell key={i+p} value={v} position={i+p} />)
+            this.props.values.slice(i, i + 9).map((v, p) =>
+              <GridCell
+                key={ i + p }
+                value={ this.props.puzzle[i+p] || v }
+                position={ i + p }
+                onUpdate={ this.props.onUpdate }
+                static={ this.props.puzzle[i+p] != 0 }
+              />),
+            i / 9
           )
         );
       }
@@ -38,18 +36,16 @@ class Grid extends React.Component {
   }
 }
 
-const GridRow = (children) => (
-  <div className={CLASS_GRID_ROW}>
+const GridRow = (children, key) => (
+  <div key={ key } className={ CLASS_GRID_ROW }>
     { children }
   </div>
 )
 
 Grid.propTypes = {
-  values: React.PropTypes.array.isRequired
+  puzzle: React.PropTypes.array.isRequired,
+  values: React.PropTypes.array.isRequired,
+  onUpdate: React.PropTypes.func.isRequired
 }
 
-Grid.defaultProps = {
-  values : new Array(81).fill(0)
-}
-
-export default Grid
+export default Grid;
