@@ -1,0 +1,40 @@
+@import './variables';
+
+.grid {
+  div {
+    line-height: normal;
+    margin: 0;
+    padding: 0;
+  }
+  .grid-row {
+      .grid-cell {
+        border: $border-thickness solid $border-color;
+        display: inline-block;
+        height: $cell-size;
+        width: $cell-size;
+        text-align: center;
+        vertical-align: middle;
+
+        &.invalid {
+          background-color: $cell-invalid-background;
+        }
+
+        &.static {
+          font-weight: bold;
+        }
+
+        &.bottom {
+          border-bottom: $border-thickness-bold solid $border-color;
+        }
+        &.left {
+          border-left: $border-thickness-bold solid $border-color;
+        }
+        &.right {
+          border-right: $border-thickness-bold solid $border-color;
+        }
+        &.top {
+          border-top: $border-thickness-bold solid $border-color;
+        }
+      }
+  }
+}

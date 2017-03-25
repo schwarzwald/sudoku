@@ -6,3 +6,10 @@ export const updateCell = (position, value) => {
     value: value
   }
 }
+
+export const UNDO = "UNDO";
+export const undo = () => {
+  return {
+    type: UNDO
+  }
+}

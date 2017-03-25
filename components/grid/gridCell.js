@@ -1,9 +1,10 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Overlay } from 'react-bootstrap';
 import GridEditor from './gridEditor.js';
 
 const CLASS_GRID_CELL = "grid-cell";
 const CLASS_GRID_CELL_STATIC = "static";
+const CLASS_GRID_CELL_INVALID = "invalid";
 const CLASS_TOP = "top";
 const CLASS_LEFT = "left";
 const CLASS_RIGHT = "right";
@@ -35,7 +36,10 @@ class GridCell extends React.Component {
     })
   }
 
-  onClick() {
+  onClick(e) {
+    if (e.target != this.refs.target) {
+      return;
+    }
     if (!this.props.static) {
       this.openEditor();
     }
@@ -56,15 +60,22 @@ class GridCell extends React.Component {
       col % 3 == 0? CLASS_LEFT: null,
       col % 9 == 8? CLASS_RIGHT: null,
       row % 9 == 8? CLASS_BOTTOM: null,
+      !this.props.isValid? CLASS_GRID_CELL_INVALID: null,
       this.props.static? CLASS_GRID_CELL_STATIC: null
     ].filter(c => c != null).join(" ");
 
     return (
-      <div className={ classes } onClick = { this.onClick }>
+      <div ref="target" className={ classes } onClick = { this.onClick }>
         { this.props.value || "" }
-        <Modal show={ this.state.isEditing } onHide={ this.closeEditor }>
+        <Overlay
+          animation={ false }
+          show={ this.state.isEditing }
+          onHide={ this.closeEditor }
+          container={ this }
+          target={ () => this }
+          rootClose={ true }>
           <GridEditor value={ this.props.value } onSelect={ this.onSelect } />
-        </Modal>
+        </Overlay>
       </div>
     )
   }
@@ -74,6 +85,7 @@ GridCell.propTypes = {
   value: React.PropTypes.number.isRequired,
   position: React.PropTypes.number.isRequired,
   static: React.PropTypes.bool,
+  isValid: React.PropTypes.bool,
   onUpdate: React.PropTypes.func.isRequired
 }
 

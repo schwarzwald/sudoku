@@ -1,5 +1,6 @@
 import React from 'react';
-import GridContainer from './containers/gridContainer.js'
+import GridContainer from './containers/gridContainer.js';
+import UndoButton from './containers/undoButton.js';
 import { QassimHamza } from '../puzzles.js';
 
 class App extends React.Component {
@@ -7,6 +8,7 @@ class App extends React.Component {
       return (
          <div>
            <GridContainer puzzle={ QassimHamza } />
+           <UndoButton />
          </div>
       );
    }
