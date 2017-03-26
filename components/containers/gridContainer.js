@@ -2,18 +2,16 @@ import { connect } from 'react-redux';
 import Grid from '../grid/grid.js'
 import { updateCell } from '../../actions/actions.js'
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     values: state.progress.values,
-    puzzle: props.puzzle
+    puzzle: ownProps.puzzle
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onUpdate: (position, value) => {
-      dispatch(updateCell(position, value));
-    }
+    onUpdate: (position, value) => dispatch(updateCell(position, value))
   }
 }
 

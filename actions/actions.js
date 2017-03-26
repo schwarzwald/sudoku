@@ -13,3 +13,10 @@ export const undo = () => {
     type: UNDO
   }
 }
+
+export const RESTART = "RESTART";
+export const restart = () => {
+  return {
+    type: RESTART
+  }
+}

@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
-import {UPDATE_CELL, UNDO} from '../actions/actions.js';
+import {UPDATE_CELL, UNDO, RESTART} from '../actions/actions.js';
 
 const updateProgress = (state = { values: new Array(81).fill(0), history: [] }, action) => {
   switch (action.type) {
     case UPDATE_CELL: return updateAndAddToHistory(state, action.position, action.value);
     case UNDO: return undo(state);
+    case RESTART: return restart(state);
     default: return state;
   }
 }
@@ -24,6 +25,13 @@ const undo = (state) => {
   let history = state.history.slice();
   nextState.values = history.pop() || state.values;
   nextState.history = history;
+  return nextState;
+}
+
+const restart = (state) => {
+  let nextState = Object.assign({}, state);
+  nextState.history = [];
+  nextState.values = new Array(81).fill(0);
   return nextState;
 }
 
