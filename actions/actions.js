@@ -20,3 +20,17 @@ export const restart = () => {
     type: RESTART
   }
 }
+
+export const SOLVE = "SOLVE";
+export const solve = () => {
+  return {
+    type: SOLVE
+  }
+}
+
+export const HINT = "HINT";
+export const hint = () => {
+  return {
+    type: HINT
+  }
+}

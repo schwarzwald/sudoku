@@ -5,7 +5,7 @@ import { updateCell } from '../../actions/actions.js'
 const mapStateToProps = (state, ownProps) => {
   return {
     values: state.progress.values,
-    puzzle: ownProps.puzzle
+    puzzle: state.progress.puzzle
   }
 }
 
